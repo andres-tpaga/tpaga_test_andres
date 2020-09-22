@@ -13,3 +13,7 @@ development:
 test:
   <<: *default
   database: tpaga_test
+
+production:
+  <<: *default
+  url: <%= ENV['DB_URL']%>
