@@ -16,6 +16,10 @@ services:
     volumes:
       - dbdata:/var/lib/postgresql/data
       - dblogs:/var/log/postgresql
+    environment:
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5433"
 
 volumes:
   dbdata:
