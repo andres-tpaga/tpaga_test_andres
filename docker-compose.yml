@@ -1,16 +1,6 @@
 version: '3'
 
-services:
-  web:
-    build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-    volumes:
-      - .:/tpaga_test
-    ports:
-      - "3000:3000"
-    depends_on:
-      - postgres
-  
+services:  
   postgres:
     image: postgres:11.7
     volumes:
@@ -21,8 +11,34 @@ services:
     ports:
       - "5432:5433"
 
+  redis:
+    image: redis:latest
+    command: redis-server --appendonly yes
+    ports:
+      - 6379:6379
+    volumes:
+      - 'redis:/data'
+
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    environment:
+      - REDIS_HOST=redis
+    volumes:
+      - .:/tpaga_test
+    ports:
+      - "3000:3000"
+    links:
+      - postgres
+      - redis
+    depends_on:
+      - postgres
+      - redis
+
 volumes:
   dbdata:
     driver: local
   dblogs:
+    driver: local
+  redis:
     driver: local
