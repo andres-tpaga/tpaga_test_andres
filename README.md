@@ -1,16 +1,13 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
 This project is dockerized so you will need to install the following dependencies
 
 * System dependencies
-  docker-compose 1.25.5
-  Docker 19.03.8
+  > docker-compose 1.25.5
+  > Docker 19.03.8
 
 * Ruby version
-  Ruby 2.4.10
+  > Ruby 2.4.10
 
 * Configuration
 After installing docker and docker-compose, you will need to run the following command:
